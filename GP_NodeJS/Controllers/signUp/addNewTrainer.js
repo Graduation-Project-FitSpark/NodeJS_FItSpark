@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid"; 
+import { v4 as uuidv4 } from "uuid";
 import db from "../../db.js";
 
 export const signUpTrainer = (req, res) => {
@@ -11,7 +11,7 @@ export const signUpTrainer = (req, res) => {
     Phone_Number,
     Age,
     Weight,
-    Hight,
+    Height,
     Gender,
     Class_Type,
     Location,
@@ -22,7 +22,26 @@ export const signUpTrainer = (req, res) => {
     Image,
     Points,
   } = req.body;
-
+  console.log(
+    Username,
+    Email,
+    Password,
+    First_Name,
+    Last_Name,
+    Phone_Number,
+    Age,
+    Weight,
+    Height,
+    Gender,
+    Class_Type,
+    Location,
+    Activity_Level,
+    Card_Number,
+    Expression_Date,
+    CVC,
+    Image,
+    Points
+  );
   if (
     !Username ||
     !Email ||
@@ -32,15 +51,14 @@ export const signUpTrainer = (req, res) => {
     !Phone_Number ||
     !Age ||
     !Weight ||
-    !Hight ||
+    !Height ||
     !Gender ||
     !Class_Type ||
     !Location ||
     !Activity_Level ||
     !Card_Number ||
     !Expression_Date ||
-    !CVC ||
-    !Image
+    !CVC
   ) {
     return res.status(400).json({
       message: "All fields are required",
@@ -60,7 +78,7 @@ export const signUpTrainer = (req, res) => {
       Phone_Number,
       Age,
       Weight,
-      Hight,
+      Height,
       Gender,
       Class_Type,
       Location,
@@ -68,14 +86,13 @@ export const signUpTrainer = (req, res) => {
       Card_Number,
       Expression_Date,
       CVC,
-      Points,
-      Image,
+      Points,    
       WatchedVideos
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
   `;
 
   const values = [
-    trainerId, 
+    trainerId,
     Username,
     Email,
     Password,
@@ -84,7 +101,7 @@ export const signUpTrainer = (req, res) => {
     Phone_Number,
     Age,
     Weight,
-    Hight,
+    Height,
     Gender,
     Class_Type,
     Location,
@@ -93,12 +110,11 @@ export const signUpTrainer = (req, res) => {
     Expression_Date,
     CVC,
     Points,
-    Image,
   ];
 
   db.query(query, values, (err, result) => {
     if (err) {
-      console.error("Error inserting data:", err); 
+      console.error("Error inserting data:", err);
       return res
         .status(500)
         .json({ error: "Database error: failed to add trainer" });

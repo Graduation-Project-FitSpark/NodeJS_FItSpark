@@ -65,7 +65,7 @@ export const signUpSpecialist = (req, res) => {
   `;
 
   const values = [
-    specialistId, 
+    specialistId,
     Username,
     Email,
     Password,
@@ -84,11 +84,11 @@ export const signUpSpecialist = (req, res) => {
 
   db.query(query, values, (err, result) => {
     if (err) {
-      console.error("Error inserting data:", err); 
+      console.error("Error inserting data:", err);
       return res
         .status(500)
         .json({ error: "Database error: failed to add specialist." });
     }
-    return res.status(201).json({ message: "Specialist successfully added." });
+    return res.status(200).json({ message: "Specialist successfully added." });
   });
 };
