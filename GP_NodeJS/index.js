@@ -46,6 +46,13 @@ import checkCoachResponseRouter from "./Routes/Coach/checkCoachResponseRouter.js
 import checkSpecialistResponseRouter from "./Routes/Specialist/checkSpecialistResponseRouter.js";
 import deleteCoachRouter from "./Routes/Coach/deleteCoachRouter.js";
 import deleteSpecialistRouter from "./Routes/Specialist/deleteSpecialistRouter.js";
+import getGymLocationRouter from "./Routes/Gym/getGymLocationRouter.js";
+import insertTrainerToGymRouter from "./Routes/Gym/insertTrainerToGymRouter.js";
+import isTrainerSignedRouter from "./Routes/Gym/isTrainerSignedRouter.js";
+import getGymsRouter from "./Routes/Gym/getGymsRouter.js";
+import getTrainerLocationRouter from "./Routes/Gym/getTrainerLocationRouter.js";
+import sendingNotificationRouter from "./Routes/Notification/sendingNotificationRouter.js";
+import uploadTokenRouter from "./Routes/Notification/uploadTokenRouter.js";
 const app = express();
 const port = 3000;
 
@@ -58,6 +65,13 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/uploadToken", uploadTokenRouter);
+app.use("/sendingNotification", sendingNotificationRouter);
+app.use("/getTrainerLocation", getTrainerLocationRouter);
+app.use("/getGyms", getGymsRouter);
+app.use("/isTrainerSigned", isTrainerSignedRouter);
+app.use("/insertTrainerToGym", insertTrainerToGymRouter);
+app.use("/getGymLocation", getGymLocationRouter);
 app.use("/deleteCoach", deleteCoachRouter);
 app.use("/deleteSpecialist", deleteSpecialistRouter);
 app.use("/checkSpecialistResponse", checkSpecialistResponseRouter);

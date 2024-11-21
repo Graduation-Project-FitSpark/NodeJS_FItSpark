@@ -8,7 +8,7 @@ export const checkCoachResponse = (req, res) => {
       return res.status(500).json({ error: "Query failed" });
     }
     if (results.length === 0) {
-      return res.status(404).json({ message: "Trainer not found" });
+      return res.status(200).json({ message: "Trainer not found" });
     }
 
     return res.status(200).json({ Accepted: results[0].Accepted });

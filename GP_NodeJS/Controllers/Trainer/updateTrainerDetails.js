@@ -14,12 +14,6 @@ export const updateTrainerDetails = (req, res) => {
     "Last_Name",
     "Phone_Number",
     "Age",
-    "Weight",
-    "Height",
-    "Gender",
-    "Class_Type",
-    "Location",
-    "Activity_Level",
     "Card_Number",
     "Expression_Date",
     "CVC",
@@ -41,8 +35,11 @@ export const updateTrainerDetails = (req, res) => {
     WHERE ID_Trainer = ?
   `;
 
-  const values = [...updates.map((key) => updateFields[key]), trainerId];
+  const values = Object.keys(updateFields)
+    .filter((key) => allowedFields.includes(key))
+    .map((key) => updateFields[key]);
 
+  values.push(trainerId);
   db.query(query, values, (err, result) => {
     if (err) {
       return res
