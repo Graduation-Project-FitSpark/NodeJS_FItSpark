@@ -31,6 +31,7 @@ const storeResults = async (req, res) => {
       ID_Trainer: trainerId,
       ID_Train: train.ID_Train,
       Day_Of_Week: day,
+      Steps: train.Steps,
     }))
   );
 
@@ -46,8 +47,8 @@ const storeResults = async (req, res) => {
 
     for (const entry of trainEntries) {
       db.query(
-        "INSERT INTO trains_trainer (ID_Trains,ID_Trainer,Day_Of_Week) VALUES (?, ?, ?)",
-        [entry.ID_Train, entry.ID_Trainer, entry.Day_Of_Week]
+        "INSERT INTO trains_trainer (ID_Trains,ID_Trainer,Day_Of_Week,Steps) VALUES (?, ?, ?, ?)",
+        [entry.ID_Train, entry.ID_Trainer, entry.Day_Of_Week, entry.Steps]
       );
     }
 

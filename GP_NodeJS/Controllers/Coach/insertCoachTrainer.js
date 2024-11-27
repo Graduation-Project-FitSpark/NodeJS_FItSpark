@@ -1,7 +1,7 @@
 import db from "../../db.js";
 
 export const insertCoachTrainer = (req, res) => {
-  const { ID_Trainer, ID_Coach, Accepted } = req.body;
+  const { ID_Trainer, ID_Coach, Accepted, Description } = req.body;
 
   if (!ID_Trainer || !ID_Coach || Accepted === undefined) {
     return res
@@ -10,18 +10,20 @@ export const insertCoachTrainer = (req, res) => {
   }
 
   const query =
-    "INSERT INTO trainer_coach (ID_Trainer, ID_Coach, Accepted) VALUES (?, ?, ?)";
+    "INSERT INTO trainer_coach (ID_Trainer, ID_Coach, Accepted, Description) VALUES (?, ?, ?, ?)";
 
-  db.query(query, [ID_Trainer, ID_Coach, Accepted], (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: "Database query failed" });
-    }
+  db.query(
+    query,
+    [ID_Trainer, ID_Coach, Accepted, Description],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "Database query failed" });
+      }
 
-    return res
-      .status(200)
-      .json({
+      return res.status(200).json({
         message: "Data inserted successfully",
         insertId: result.insertId,
       });
-  });
+    }
+  );
 };

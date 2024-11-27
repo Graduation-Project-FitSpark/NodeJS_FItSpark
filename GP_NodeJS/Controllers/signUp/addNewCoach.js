@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import db from "../../db.js";
 
 export const signUpCoach = (req, res) => {
+  const trainersCount = 0;
   const {
     Username,
     Email,
@@ -18,7 +19,7 @@ export const signUpCoach = (req, res) => {
     YearsOfExperience,
     Points,
   } = req.body;
-
+  console.log(YearsOfExperience);
   if (
     !Username ||
     !Email ||
@@ -76,7 +77,6 @@ export const signUpCoach = (req, res) => {
     Card_Number,
     Expression_Date,
     CVC,
-    Points,
     YearsOfExperience,
   ];
 

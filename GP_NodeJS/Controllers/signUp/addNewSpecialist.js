@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import db from "../../db.js";
 
 export const signUpSpecialist = (req, res) => {
+  const trainersCount = 0;
   console.log("Received Data:", req.body);
 
   const {
@@ -78,7 +79,6 @@ export const signUpSpecialist = (req, res) => {
     Card_Number,
     Expression_Date,
     CVC,
-    Points,
     YearsOfExperience,
   ];
 
