@@ -26,12 +26,12 @@ export const searchForUser = (req, res) => {
         if (user.Password === password) {
           return res
             .status(200)
-            .json({ message: `${table} authenticated`, user });
+            .json({ message: `${table} authenticated`, user, table: table });
         } else {
           return res.status(401).json({ message: "Invalid password" });
         }
       }
-      callback(); 
+      callback();
     });
   };
 

@@ -53,6 +53,17 @@ import getGymsRouter from "./Routes/Gym/getGymsRouter.js";
 import getTrainerLocationRouter from "./Routes/Gym/getTrainerLocationRouter.js";
 import sendingNotificationRouter from "./Routes/Notification/sendingNotificationRouter.js";
 import uploadTokenRouter from "./Routes/Notification/uploadTokenRouter.js";
+import getCoachDetailsRouter from "./Routes/Coach/getCoachDetailsRouter.js";
+import getTrainerWithDetailsRouter from "./Routes/Coach/getTrainersWithDetailsRouter.js";
+import getTrainerCoachRouter from "./Routes/Coach/getTrainerCoachRouter.js";
+import getTrainerSpecificDetailsRouter from "./Routes/Coach/getTrainerSpecificDetailsRouter.js";
+import getTrainerClorieDetailsRouter from "./Routes/Coach/getTrainerCalorieDetailsRouter.js";
+import getTrainerCoachWithDescriptionRouter from "./Routes/Coach/getTrainerCoachWithDescriptionRouter.js";
+import processRequestsCoachRouter from "./Routes/Coach/processRequestsCoachRouter.js";
+import editTrainerTrainsRouter from "./Routes/Coach/editTrainerTrainsRouter.js";
+import getOriginalTrainerTrainsRouter from "./Routes/Trains/getOriginalTrainerTrainsRouter.js";
+import updateCoachDetailsRouter from "./Routes/Coach/updateCoachDetailsRouter.js";
+import uploadingVideoRouter from "./Routes/Aws/uploadingVideoRouter.js";
 const app = express();
 const port = 3000;
 
@@ -65,6 +76,20 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/uploadingVideo", uploadingVideoRouter);
+app.use("/updateCoachDetails", updateCoachDetailsRouter);
+app.use("/getOriginalTrainerTrains", getOriginalTrainerTrainsRouter);
+app.use("/editTrainerTrains", editTrainerTrainsRouter);
+app.use("/processRequestsCoach", processRequestsCoachRouter);
+app.use(
+  "/getTrainerCoachWithDescription",
+  getTrainerCoachWithDescriptionRouter
+);
+app.use("/getTrainerClorieDetails", getTrainerClorieDetailsRouter);
+app.use("/getTrainerSpecificDetails", getTrainerSpecificDetailsRouter);
+app.use("/getTrainerCoach", getTrainerCoachRouter);
+app.use("/getTrainerWithDetails", getTrainerWithDetailsRouter);
+app.use("/getCoachDetails", getCoachDetailsRouter);
 app.use("/uploadToken", uploadTokenRouter);
 app.use("/sendingNotification", sendingNotificationRouter);
 app.use("/getTrainerLocation", getTrainerLocationRouter);
