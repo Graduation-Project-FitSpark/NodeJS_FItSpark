@@ -64,6 +64,7 @@ import editTrainerTrainsRouter from "./Routes/Coach/editTrainerTrainsRouter.js";
 import getOriginalTrainerTrainsRouter from "./Routes/Trains/getOriginalTrainerTrainsRouter.js";
 import updateCoachDetailsRouter from "./Routes/Coach/updateCoachDetailsRouter.js";
 import uploadingVideoRouter from "./Routes/Aws/uploadingVideoRouter.js";
+import insertCoachPointsRouter from "./Routes/Coach/insertCoachPointsRouter.js";
 const app = express();
 const port = 3000;
 
@@ -76,6 +77,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/insertCoachPoints", insertCoachPointsRouter);
 app.use("/uploadingVideo", uploadingVideoRouter);
 app.use("/updateCoachDetails", updateCoachDetailsRouter);
 app.use("/getOriginalTrainerTrains", getOriginalTrainerTrainsRouter);
