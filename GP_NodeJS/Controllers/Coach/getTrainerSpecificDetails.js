@@ -16,7 +16,7 @@ export const getTrainerSpecificDetails = async (req, res) => {
       SELECT 
         ID_Trainer, Gender, Class_Type, Location, 
         Activity_Level, Card_Number, Expression_Date, 
-        CVC, Points, WatchedVideos, Token, Username
+        CVC, Points, WatchedVideos, Token, Username, Height, Weight
       FROM trainer
     `;
 

@@ -65,6 +65,14 @@ import getOriginalTrainerTrainsRouter from "./Routes/Trains/getOriginalTrainerTr
 import updateCoachDetailsRouter from "./Routes/Coach/updateCoachDetailsRouter.js";
 import uploadingVideoRouter from "./Routes/Aws/uploadingVideoRouter.js";
 import insertCoachPointsRouter from "./Routes/Coach/insertCoachPointsRouter.js";
+import getSpecialistDetailsRouter from "./Routes/Specialist/getSpecialistDetailsRouter.js";
+import getTrainerSpecialistRouter from "./Routes/Specialist/getTrainerSpecialistRouter.js";
+import processRequestsSpecialistRouter from "./Routes/Specialist/processRequestsSpecialistRouter.js";
+import getTrainerSpecialistWithDescriptionRouter from "./Routes/Specialist/getTrainerSpecialistWithDescription.js";
+import insertSpecialistPointsRouter from "./Routes/Specialist/insertSpecialistPointsRouter.js";
+import updateSpecialistDetailsRouter from "./Routes/Specialist/updateSpecialistDetailsRouter.js";
+import getTrainerWeekFoodsRouter from "./Routes/Specialist/getTrainerWeekFoodsRouter.js";
+import editTrainerFoodsRouter from "./Routes/Specialist/editTrainerFoodsRouter.js";
 const app = express();
 const port = 3000;
 
@@ -77,6 +85,17 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/editTrainerFoods", editTrainerFoodsRouter);
+app.use("/getTrainerWeekFoods", getTrainerWeekFoodsRouter);
+app.use("/updateSpecialistDetails", updateSpecialistDetailsRouter);
+app.use("/insertSpecialistPoints", insertSpecialistPointsRouter);
+app.use(
+  "/getTrainerSpecialistWithDescription",
+  getTrainerSpecialistWithDescriptionRouter
+);
+app.use("/processRequestsSpecialist", processRequestsSpecialistRouter);
+app.use("/getTrainerSpecialist", getTrainerSpecialistRouter);
+app.use("/getSpecialistDetails", getSpecialistDetailsRouter);
 app.use("/insertCoachPoints", insertCoachPointsRouter);
 app.use("/uploadingVideo", uploadingVideoRouter);
 app.use("/updateCoachDetails", updateCoachDetailsRouter);
