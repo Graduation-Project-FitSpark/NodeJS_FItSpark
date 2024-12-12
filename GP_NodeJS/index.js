@@ -73,6 +73,8 @@ import insertSpecialistPointsRouter from "./Routes/Specialist/insertSpecialistPo
 import updateSpecialistDetailsRouter from "./Routes/Specialist/updateSpecialistDetailsRouter.js";
 import getTrainerWeekFoodsRouter from "./Routes/Specialist/getTrainerWeekFoodsRouter.js";
 import editTrainerFoodsRouter from "./Routes/Specialist/editTrainerFoodsRouter.js";
+import getTrainerSignedCoachRouter from "./Routes/Trainer/getTrainerSignedCoachRouter.js";
+import getTrainerSignedSpecialistRouter from "./Routes/Trainer/getTrainerSignedSpecialistRouter.js";
 const app = express();
 const port = 3000;
 
@@ -85,6 +87,8 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/getTrainerSignedSpecialist", getTrainerSignedSpecialistRouter);
+app.use("/getTrainerSignedCoach", getTrainerSignedCoachRouter);
 app.use("/editTrainerFoods", editTrainerFoodsRouter);
 app.use("/getTrainerWeekFoods", getTrainerWeekFoodsRouter);
 app.use("/updateSpecialistDetails", updateSpecialistDetailsRouter);
