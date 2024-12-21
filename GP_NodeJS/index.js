@@ -75,9 +75,24 @@ import getTrainerWeekFoodsRouter from "./Routes/Specialist/getTrainerWeekFoodsRo
 import editTrainerFoodsRouter from "./Routes/Specialist/editTrainerFoodsRouter.js";
 import getTrainerSignedCoachRouter from "./Routes/Trainer/getTrainerSignedCoachRouter.js";
 import getTrainerSignedSpecialistRouter from "./Routes/Trainer/getTrainerSignedSpecialistRouter.js";
+import getAdminDetailsRouter from "./Routes/Admin/getAdminDetailsRouter.js";
+import getAllCoachesAdminRouter from "./Routes/Admin/getAllCoachesRouter.js";
+import getAllSepcialistsAdminRouter from "./Routes/Admin/getAllSpecialistsRouter.js";
+import EditCoachsAdminRouter from "./Routes/Admin/EditCoachesAdminRouter.js";
+import EditSpecialistsAdminRouter from "./Routes/Admin/EditSpecialistsAdminRouter.js";
+import insertPointAwardRouter from "./Routes/Admin/insertPointAwardRouter.js";
+import DeleteTrainerAdminRouter from "./Routes/Admin/DeleteTrainerAdminRouter.js";
+import DeleteCoachAdminRouter from "./Routes/Admin/DeleteCoachAdminRouter.js";
+import DeleteSpecialistAdminRouter from "./Routes/Admin/DeleteSpecialistAdminRouter.js";
+import getAllLocationsRouter from "./Routes/Admin/getAllLocationsRouter.js";
+import getAdminInformationsRouter from "./Routes/Admin/getAdminInformationsRouter.js";
+import updateadminDetailsRouter from "./Routes/Admin/updateadminDetailsRouter.js";
+import getCoachVideosRouter from "./Routes/Admin/getCoachVideosRouter.js";
+import deleteCoachVideoRouter from "./Routes/Admin/deleteCoachVideoRouter.js";
 const app = express();
 const port = 3000;
-
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3001",
@@ -87,6 +102,20 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/deleteCoachVideo", deleteCoachVideoRouter);
+app.use("/getCoachVideos", getCoachVideosRouter);
+app.use("/updateadminDetails", updateadminDetailsRouter);
+app.use("/getAdminInformations", getAdminInformationsRouter);
+app.use("/getAllLocations", getAllLocationsRouter);
+app.use("/DeleteTrainerAdmin", DeleteTrainerAdminRouter);
+app.use("/DeleteCoachAdmin", DeleteCoachAdminRouter);
+app.use("/DeleteSpecialistAdmin", DeleteSpecialistAdminRouter);
+app.use("/insertPointAward", insertPointAwardRouter);
+app.use("/EditSpecialistsAdmin", EditSpecialistsAdminRouter);
+app.use("/EditCoachsAdmin", EditCoachsAdminRouter);
+app.use("/getAllSepcialistsAdmin", getAllSepcialistsAdminRouter);
+app.use("/getAllCoachesAdmin", getAllCoachesAdminRouter);
+app.use("/getAdminDetails", getAdminDetailsRouter);
 app.use("/getTrainerSignedSpecialist", getTrainerSignedSpecialistRouter);
 app.use("/getTrainerSignedCoach", getTrainerSignedCoachRouter);
 app.use("/editTrainerFoods", editTrainerFoodsRouter);

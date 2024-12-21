@@ -66,6 +66,7 @@ export const signUpTrainer = (req, res) => {
   }
 
   const trainerId = uuidv4();
+  const today = new Date().toISOString().split("T")[0];
 
   const query = `
     INSERT INTO trainer (
@@ -87,8 +88,9 @@ export const signUpTrainer = (req, res) => {
       Expression_Date,
       CVC,
       Points,    
-      WatchedVideos
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+      WatchedVideos,
+      Dateenter
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)
   `;
 
   const values = [
@@ -110,6 +112,7 @@ export const signUpTrainer = (req, res) => {
     Expression_Date,
     CVC,
     Points,
+    today,
   ];
 
   db.query(query, values, (err, result) => {

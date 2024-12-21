@@ -10,6 +10,7 @@ export const ifUserExsists = (req, res) => {
     trainer: "SELECT * FROM trainer WHERE Username = ?",
     coach: "SELECT * FROM coach WHERE Username = ?",
     specialist: "SELECT * FROM specialist WHERE Username = ?",
+    admin: "SELECT * FROM admin WHERE Username = ?",
   };
 
   const searchTable = (table, callback) => {
@@ -29,7 +30,9 @@ export const ifUserExsists = (req, res) => {
   searchTable("trainer", () => {
     searchTable("coach", () => {
       searchTable("specialist", () => {
-        return res.status(404).json({ message: `F` });
+        searchTable("admin", () => {
+          return res.status(404).json({ message: `F` });
+        });
       });
     });
   });

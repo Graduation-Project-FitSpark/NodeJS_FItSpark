@@ -20,6 +20,7 @@ export const signUpSpecialist = (req, res) => {
     CVC,
     YearsOfExperience,
     Points,
+    Description,
   } = req.body;
 
   if (
@@ -35,7 +36,8 @@ export const signUpSpecialist = (req, res) => {
     !Card_Number ||
     !Expression_Date ||
     !CVC ||
-    !YearsOfExperience
+    !YearsOfExperience ||
+    !Description
   ) {
     return res.status(400).json({
       message: "Please provide all required specialist details.",
@@ -43,6 +45,7 @@ export const signUpSpecialist = (req, res) => {
   }
 
   const specialistId = uuidv4();
+  const today = new Date().toISOString().split("T")[0];
 
   const query = `
     INSERT INTO specialist (
@@ -61,8 +64,11 @@ export const signUpSpecialist = (req, res) => {
       CVC,
       Points,
       Trainers_Count,
-      YearsOfExperience
-    ) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?)
+      YearsOfExperience,
+      Dateenter,
+      AcceptedDescription,
+      Description
+    ) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?)
   `;
 
   const values = [
@@ -80,6 +86,9 @@ export const signUpSpecialist = (req, res) => {
     Expression_Date,
     CVC,
     YearsOfExperience,
+    today,
+    "P",
+    Description,
   ];
 
   db.query(query, values, (err, result) => {

@@ -18,6 +18,7 @@ export const signUpCoach = (req, res) => {
     CVC,
     YearsOfExperience,
     Points,
+    Description,
   } = req.body;
   console.log(YearsOfExperience);
   if (
@@ -33,7 +34,8 @@ export const signUpCoach = (req, res) => {
     !Card_Number ||
     !Expression_Date ||
     !CVC ||
-    !YearsOfExperience
+    !YearsOfExperience ||
+    !Description
   ) {
     return res.status(400).json({
       message: "Please provide all required coach details.",
@@ -41,6 +43,7 @@ export const signUpCoach = (req, res) => {
   }
 
   const idCoach = uuidv4();
+  const today = new Date().toISOString().split("T")[0];
 
   const query = `
   INSERT INTO coach (
@@ -59,8 +62,11 @@ export const signUpCoach = (req, res) => {
     CVC,
     Points,
     Trainers_Count,
-    YearsOfExperience
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?)
+    YearsOfExperience,
+    Dateenter,
+    AcceptedDescription,
+    Description
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?)
 `;
 
   const values = [
@@ -78,8 +84,11 @@ export const signUpCoach = (req, res) => {
     Expression_Date,
     CVC,
     YearsOfExperience,
+    today,
+    "P",
+    Description,
   ];
-
+  console.log(Description);
   db.query(query, values, (err, result) => {
     if (err) {
       console.error("Error inserting data:", err);
