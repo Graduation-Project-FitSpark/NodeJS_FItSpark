@@ -89,6 +89,11 @@ import getAdminInformationsRouter from "./Routes/Admin/getAdminInformationsRoute
 import updateadminDetailsRouter from "./Routes/Admin/updateadminDetailsRouter.js";
 import getCoachVideosRouter from "./Routes/Admin/getCoachVideosRouter.js";
 import deleteCoachVideoRouter from "./Routes/Admin/deleteCoachVideoRouter.js";
+import uploadOrderRouter from "./Routes/Sales/uploadOrderRouter.js";
+import insertNewProductRouter from "./Routes/Sales/insertNewProductRouter.js";
+import insertNewMealRouter from "./Routes/Foods/insertNewMealRouter.js";
+import insertNewIngredientsRouter from "./Routes/Foods/insertNewIngredientsRouter.js";
+import getAllSalesTrainersRouter from "./Routes/Sales/getAllSalesTrainersRouter.js";
 const app = express();
 const port = 3000;
 app.use(express.json({ limit: "50mb" }));
@@ -102,6 +107,11 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use("/getAllSalesTrainers", getAllSalesTrainersRouter);
+app.use("/insertNewIngredients", insertNewIngredientsRouter);
+app.use("/insertNewMeal", insertNewMealRouter);
+app.use("/insertNewProduct", insertNewProductRouter);
+app.use("/uploadOrder", uploadOrderRouter);
 app.use("/deleteCoachVideo", deleteCoachVideoRouter);
 app.use("/getCoachVideos", getCoachVideosRouter);
 app.use("/updateadminDetails", updateadminDetailsRouter);
