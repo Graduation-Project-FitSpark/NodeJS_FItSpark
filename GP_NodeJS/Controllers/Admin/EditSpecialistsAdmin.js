@@ -1,5 +1,6 @@
 import db from "../../db.js";
 import nodemailer from "nodemailer";
+
 const sendAcceptedEmail = async (Email) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.elasticemail.com",
@@ -15,17 +16,45 @@ const sendAcceptedEmail = async (Email) => {
     from: "ashayera44@gmail.com",
     to: Email,
     subject: "Notification from FitSpark",
-    text: `We are approved your request, feel free in our site and welcome to our family! If you have any questions, please contact support.`,
-    html: `<p style="font-size: 24px;"><strong>We are approved your request, feel free in our site and welcome to our family! If you have any questions, please contact support.</strong></p>`,
+    text: `We have approved your request. Feel free to use our site and welcome to our family! If you have any questions, please contact support.`,
+    html: `<p style="font-size: 24px;"><strong>We have approved your request. Feel free to use our site and welcome to our family! If you have any questions, please contact support.</strong></p>`,
   };
 
   try {
     let info = await transporter.sendMail(mailOptions);
-    console.log("Message sent: %s", info.messageId);
+    console.log("Accepted email sent: %s", info.messageId);
+  } catch (error) {
+    console.error("Error sending accepted email:", error);
+  }
+};
+
+const sendRejectedEmail = async (Email) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.elasticemail.com",
+    port: 2525,
+    secure: false,
+    auth: {
+      user: "ashayera44@gmail.com",
+      pass: "6D22E12F9D0FBB4F674DA73E7C3BE615FAE3",
+    },
+  });
+
+  const mailOptions = {
+    from: "ashayera44@gmail.com",
+    to: Email,
+    subject: "Rejection Notification from FitSpark",
+    text: `We are sorry to inform you that your request has been rejected. If you have any questions, please contact support.`,
+    html: `<p style="font-size: 24px;"><strong>We are sorry to inform you that your request has been rejected. If you have any questions, please contact support.</strong></p>`,
+  };
+
+  try {
+    let info = await transporter.sendMail(mailOptions);
+    console.log("Rejection email sent: %s", info.messageId);
   } catch (error) {
     console.error("Error sending rejection email:", error);
   }
 };
+
 const EditSpecialistsAdmin = async (req, res) => {
   const specialist = req.body;
   const specialists = specialist.map((specialist) => ({
@@ -33,6 +62,7 @@ const EditSpecialistsAdmin = async (req, res) => {
     Expression_Date: specialist.Expression_Date.split("T")[0],
     Dateenter: specialist.Dateenter.split("T")[0],
   }));
+
   try {
     for (const specialist of specialists) {
       const {
@@ -60,36 +90,20 @@ const EditSpecialistsAdmin = async (req, res) => {
       const Img = null;
 
       if (AcceptedDescription === "R") {
-        const transporter = nodemailer.createTransport({
-          host: "smtp.elasticemail.com",
-          port: 2525,
-          secure: false,
-          auth: {
-            user: "ashayera44@gmail.com",
-            pass: "6D22E12F9D0FBB4F674DA73E7C3BE615FAE3",
-          },
-        });
-
-        const mailOptions = {
-          from: "ashayera44@gmail.com",
-          to: Email,
-          subject: "Rejection Notification from FitSpark",
-          text: `We are sorry to inform you that your request has been rejected. If you have any questions, please contact support.`,
-          html: `<p style="font-size: 24px;"><strong>We are sorry to inform you that your request has been rejected. If you have any questions, please contact support.</strong></p>`,
-        };
+        await sendRejectedEmail(Email);
 
         try {
-          await transporter.sendMail(mailOptions);
-          console.log(`Rejection email sent to ${Email}`);
-
           const deleteQuery = `DELETE FROM specialist WHERE ID_Specialist = ?`;
           await db.promise().query(deleteQuery, [ID_Specialist]);
           console.log(`Specialist with ID ${ID_Specialist} deleted`);
         } catch (error) {
-          console.error(`Error sending rejection email to ${Email}:`, error);
-          return res
-            .status(500)
-            .json({ message: `Failed to send rejection email to ${Email}` });
+          console.error(
+            `Error deleting specialist with ID ${ID_Specialist}:`,
+            error
+          );
+          return res.status(500).json({
+            message: `Error deleting specialist with ID ${ID_Specialist}`,
+          });
         }
       } else {
         const updateQuery = `UPDATE specialist SET
@@ -136,9 +150,11 @@ const EditSpecialistsAdmin = async (req, res) => {
           Description,
           ID_Specialist,
         ];
-        if (AcceptedDescription == "A") {
-          sendAcceptedEmail(Email);
+
+        if (AcceptedDescription === "A") {
+          await sendAcceptedEmail(Email);
         }
+
         try {
           await db.promise().query(updateQuery, values);
           console.log(`Specialist with ID ${ID_Specialist} updated`);

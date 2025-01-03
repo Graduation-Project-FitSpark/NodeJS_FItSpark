@@ -11,6 +11,7 @@ export const DeleteTrainerAdmin = (req, res) => {
 
   db.query(query, [ID_Trainer], (err, results) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ error: "Database query failed" });
     }
 
